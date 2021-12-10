@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Reducers/Login";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import "./style.css";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
+  const [identity, setIdentity] = useState("");
   const [passowrd, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+
 
   const state = useSelector((state) => {
     return {
@@ -19,24 +22,32 @@ const Login = () => {
   // console.log(process.env.REACT_APP_BASE_URL);
 
   const login = async () => {
-    try {
+    // try {
       const result = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/login`,
         {
-          email,
-          passowrd,
+          email: identity ,
+          passowrd: passowrd,
         }
       );
-      dispatch(
-        signIn({ role: result.data.result.role, token: result.data.token })
-      );
-
-      navigate("/list");
-      console.log(result);
-    } catch (error) {
-      console.log(error);
+      if (result.status ===200){
+          setMessage("Login Successfully");
+           dispatch(
+             signIn({ role: result.data.result.role, token: result.data.token })
+           );
+           navigate("/explore");
+           console.log(result);
+      } else {
+          setMessage(result.data);
+      }
     }
-  };
+       
+
+      
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
 
   return (
     <div className="wrapper">
@@ -44,12 +55,13 @@ const Login = () => {
         <div className="form">
           <h1>Login</h1>
 
+          {message ? <div className="message">{message} </div> : ""}
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Email or Password"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setIdentity(e.target.value)}
           />
           <input
             type="password"

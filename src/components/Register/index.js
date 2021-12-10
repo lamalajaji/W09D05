@@ -1,35 +1,65 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import axios from "axios";
-
+import "./style.css";
 const SignUp = () => {
   const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [passowrd, setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
   const state = useSelector((state) => {
     return {
       token: state.Login.token,
     };
   });
+  useEffect(()=> {
+     getAllUSers() 
+  },[])
+
+  const getAllUSers =async ()=> 
+  {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
+      setUsers(res.data)
+
+  }
 
   const signUp = async () => {
-    try {
-      await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, {
-        email,
-        userName: username,
-        passowrd,
-        avatar,
+    let exist = false;
+    users.filter((user) => {
+      if (user.email === email || user.userName === username) {
+        exist = true;
+      }
+    });
+    if (exist) {
+      Swal.fire({
+        title: "Email or Username Already Exist, try with another ones ",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
       });
-      navigate("/");
-    } catch (error) {
-      console.log(error);
+    } else {
+      try {
+        await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, {
+          email,
+          userName: username,
+          password,
+          role: process.env.REACT_APP_ROLE,
+        });
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
     }
-  };
-  console.log(process.env.REACT_APP_BASE_URL);
+  }
+//   console.log(process.env.REACT_APP_BASE_URL);
+//   console.log(process.env.REACT_APP_ROLE);
   return (
     <div className="wrapper">
       {!state.token ? (
@@ -56,12 +86,6 @@ const SignUp = () => {
             placeholder="Password"
             required
             onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="url"
-            name="avatar"
-            placeholder="Avatar"
-            onChange={(e) => setAvatar(e.target.value)}
           />
 
           <input type="submit" value="Sign Up" onClick={signUp} />
