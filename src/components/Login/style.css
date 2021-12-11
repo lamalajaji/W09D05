@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding:  0;
+    box-sizing: border-box;
+}
+
+.wrapper{
+    width: 100%;
+
+}
+
+.form{
+    width: 40%;
+    height: 400px;
+    margin: 15% 30% ;
+    border: 1px solid black;
+   
+}
+.form h1{
+    text-align: center; 
+     font-size: 50px; 
+     font-weight: lighter;
+    font-family: 'Handlee', cursive;
+
+}
