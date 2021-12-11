@@ -86,31 +86,40 @@ const SignUp = () => {
             }}
           />
           <h1>Sign Up </h1>
+          <form
+            className="signupForm"
+            onSubmit={(e) => {
+              e.preventDefault();
+              signUp(e);
+            }}
+          >
+            <input
+              type="text"
+              placeholder="Username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            required
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <input type="submit" value="Sign Up" onClick={signUp} />
-
+            <input
+              id="signupSubmitButton"
+              type="submit"
+              value="Submit"
+              disabled
+            />
+          </form>
           <h3>
             {" "}
             You Have an Account ? <Link to="/">Login Here </Link>{" "}
