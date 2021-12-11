@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom'
 import {  useSelector } from "react-redux";
+import Nav from "./../NavBar";
 import axios from "axios";
 import "./style.css";
 
@@ -45,7 +46,7 @@ const state = useSelector((state) => {
           </div>
         ) : (
           <div className="explore" >
-           
+           <Nav/>
             {posts.map((post) => {
               console.log(post.title);
               return (

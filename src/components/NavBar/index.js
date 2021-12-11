@@ -1,24 +1,23 @@
 import React  from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import "./style.css";
 
 
 const Nav = () => {
     return (
-      <ul>
-        <Link to="/explore">
-          {" "}
-          <li> Home </li>
-        </Link>
-        <Link to="/explore">
-          {" "}
-          <li> Home </li>
-        </Link>
-        <Link to="/explore">
-          {" "}
-          <li> Home </li>
-        </Link>
-      </ul>
+      <header>
+        <ul className="navLinks">
+          <Link to="/explore">
+            <li> Home </li>
+          </Link>
+          <Link to="/explore">
+            <li> Home </li>
+          </Link>
+          <Link to="/explore">
+            <li> Home </li>
+          </Link>
+        </ul>
+      </header>
     );
 }
 

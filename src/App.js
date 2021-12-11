@@ -12,6 +12,7 @@ export default class App extends Component {
           <Route path="/" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
           <Route path="explore" element={<Posts />} />
+          
         </Routes>
       </div>
     );

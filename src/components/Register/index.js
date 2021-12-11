@@ -1,4 +1,5 @@
 import React, { useState , useEffect } from "react";
+import PasswordChecklist from "react-password-checklist";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
@@ -64,6 +65,26 @@ const SignUp = () => {
     <div className="wrapper">
       {!state.token ? (
         <div className="form">
+          <PasswordChecklist
+            rules={[
+              "minLength",
+              "specialChar",
+              "number",
+              "capital",
+              "lowercase",
+            ]}
+            minLength={8}
+            value={password}
+            onChange={(isValid) => {
+              if (isValid) {
+                const button = document.querySelector("#signupSubmitButton");
+                button.disabled = false;
+              } else {
+                const button = document.querySelector("#signupSubmitButton");
+                button.disabled = true;
+              }
+            }}
+          />
           <h1>Sign Up </h1>
 
           <input
@@ -98,7 +119,7 @@ const SignUp = () => {
       ) : (
         <h1>
           {" "}
-          You Already Logged in , Go To <Link to="/home">Home</Link>{" "}
+          You Already Logged in , Go To <Link to="/explore">Home</Link>{" "}
         </h1>
       )}
     </div>
