@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [identity, setIdentity] = useState("");
-  const [passowrd, setPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
 
@@ -22,24 +22,36 @@ const Login = () => {
   // console.log(process.env.REACT_APP_BASE_URL);
 
   const login = async () => {
-    // try {
+    try {
       const result = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/login`,
         {
-          email: identity ,
-          passowrd: passowrd,
+          identity: identity,
+          password: password,
         }
       );
-      if (result.status ===200){
-          setMessage("Login Successfully");
-           dispatch(
-             signIn({ role: result.data.result.role, token: result.data.token })
-           );
-           navigate("/explore");
-           console.log(result);
-      } else {
-          setMessage(result.data);
-      }
+      dispatch(
+        signIn({
+          role: result.data.result.role,
+          token: result.data.token,
+          user: result.data.result
+        })
+      );
+      navigate("/explore");
+    } catch (error) {
+      console.log(error);
+    }
+  
+      // if (result.status ===200){
+      //     setMessage("Login Successfully");
+      //      dispatch(
+      //        signIn({ role: result.data.result.role, token: result.data.token })
+      //      );
+      //      navigate("/explore");
+      //      console.log(result);
+      // } else {
+      //     setMessage(result.data);
+      // }
     }
        
 
@@ -71,6 +83,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input type="submit" value="login" onClick={login} />
+          <h3> Forgot Your Password ?  </h3>
 
           <h3>
             {" "}
