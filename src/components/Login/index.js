@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Reducers/Login";
+import GoogleLogin from "react-google-login";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
@@ -53,8 +54,15 @@ const Login = () => {
       //     setMessage(result.data);
       // }
     }
-       
 
+    const responseSuccessGoogle = (response)=>{
+console.log(response);
+navigate("/explore");
+    }
+       
+const responseErrorGoogle = (response)=>{
+  console.log(response);
+}
       
 //     } catch (error) {
 //       console.log(error);
@@ -83,13 +91,17 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <input type="submit" value="login" onClick={login} />
-          <h3> Forgot Your Password ?  </h3>
+          <h3> Forgot Your Password ? </h3>
 
           <h3>
-            {" "}
-            You Don't Have an Account ? <Link to="/signup">
-              SignUp Here{" "}
-            </Link>{" "}
+            <GoogleLogin
+              clientId={process.env.REACT_APP_CLIENT_ID}
+              buttonText="Login With Google"
+              onSuccess={responseSuccessGoogle}
+              onFailure={responseErrorGoogle}
+              cookiePolicy={"single_host_origin"}
+            />{" "}
+            You Don't Have an Account ? <Link to="/signup">SignUp Here </Link>{" "}
           </h3>
         </div>
       ) : (
