@@ -7,6 +7,7 @@ import "./style.css";
 
 const Posts = () => {
   let [posts, setPosts] = useState([]);
+  let [comments, setComments] = useState([]);
 
 const state = useSelector((state) => {
   return {
@@ -17,6 +18,7 @@ const state = useSelector((state) => {
 
   useEffect(() => {
     getPosts();
+    getComments();
   }, []);
 
 
@@ -32,6 +34,23 @@ const state = useSelector((state) => {
     }
   };
 
+  const getComments = async ()=>{
+    try{
+      const comments = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/comments`,
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+        
+      );setComments(comments.data);
+
+    }catch(error){
+      console.log(error);
+
+    }
+  }
 
   return (
     <>
@@ -40,7 +59,7 @@ const state = useSelector((state) => {
           <div className="wrapper">
             <h1>
               {" "}
-              You Have to <Link to="signup"> Sign Up </Link> or{" "}
+              You Have to <Link to="/signup"> Sign Up </Link> or{" "}
               <Link to="/"> Login </Link>{" "}
             </h1>
           </div>
@@ -48,13 +67,24 @@ const state = useSelector((state) => {
           <div className="explore" >
            <Nav/>
             {posts.map((post) => {
-              console.log(post.title);
+              console.log(post);
               return (
                 <div className="card" key={post._id}>
                   <div className="post-header">
+                    <Link to={`/post/${post._id}`}>
                       <img src={post.img} />
-                    <h3>{post.title}</h3>
+                      <h3>{post.title}</h3>
+                    </Link>
+                    
                   </div>
+                  {comments.map((comment)=>{
+                    console.log(comments);
+                    return (
+                      <ul>
+                        <li key={comment._id}>{} </li>
+                      </ul>
+                    );
+                  })}
                 </div>
               );
              

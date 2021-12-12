@@ -53,7 +53,7 @@ const SignUp = () => {
           password,
           role: process.env.REACT_APP_ROLE,
         });
-        navigate("/");
+        navigate("/verify");
       } catch (error) {
         console.log(error);
       }
