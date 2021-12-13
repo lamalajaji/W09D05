@@ -9,7 +9,7 @@ const Posts = () => {
   let [posts, setPosts] = useState([]);
   let [comments, setComments] = useState([]);
 
-const state = useSelector((state) => {
+  const state = useSelector((state) => {
   return {
     token: state.Login.token,
     user : state.Login.user
@@ -58,42 +58,43 @@ const state = useSelector((state) => {
         {!state.token ? (
           <div className="wrapper">
             <h1>
-              {" "}
-              You Have to <Link to="/signup"> Sign Up </Link> or{" "}
-              <Link to="/"> Login </Link>{" "}
+              You Have to <Link to="/signup"> Sign Up </Link> or
+              <Link to="/"> Login </Link>
             </h1>
           </div>
         ) : (
-          <div className="explore" >
-           <Nav/>
-            {posts.map((post) => {
-              console.log(post);
+          <div className="explore">
+            <Nav />
+            <button>Add Meme</button>
+            {comments.map((ele) => {
+              // console.log(post);
               return (
-                <div className="card" key={post._id}>
+                <div className="card" key={ele._id}>
                   <div className="post-header">
-                    <Link to={`/post/${post._id}`}>
-                      <img src={post.img} />
-                      <h3>{post.title}</h3>
+                    <Link to={`/post/${ele._id}`}>
+                      <img src={ele.post.img} />
+                      <h3>{ele.post.title}</h3>
                     </Link>
                     
+                      <p>{ele.comment}</p>
+                    
                   </div>
-                  {comments.map((comment)=>{
+                  {/* {comments.map((comment)=>{
                     console.log(comments);
                     return (
                       <ul>
                         <li key={comment._id}>{} </li>
                       </ul>
                     );
-                  })}
+                  })} */}
                 </div>
               );
-             
-            //   <img {post.img}/>
+
+              //   <img {post.img}/>
             })}
           </div>
         )}
       </div>
-      
     </>
   );
 

@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import PasswordChecklist from "react-password-checklist";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,16 +17,14 @@ const SignUp = () => {
       token: state.Login.token,
     };
   });
-  useEffect(()=> {
-     getAllUSers() 
-  },[])
+  useEffect(() => {
+    getAllUSers();
+  }, []);
 
-  const getAllUSers =async ()=> 
-  {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
-      setUsers(res.data)
-
-  }
+  const getAllUSers = async () => {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
+    setUsers(res.data);
+  };
 
   const signUp = async () => {
     let exist = false;
@@ -47,20 +45,24 @@ const SignUp = () => {
       });
     } else {
       try {
-        await axios.post(`${process.env.REACT_APP_BASE_URL}/register`, {
-          email,
-          userName: username,
-          password,
-          role: process.env.REACT_APP_ROLE,
-        });
-        navigate("/verify");
+        const res = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/register`,
+          {
+            email,
+            userName: username,
+            password,
+            role: process.env.REACT_APP_ROLE,
+          }
+        );
+
+        navigate(`/verify/${res.data._id}`);
       } catch (error) {
         console.log(error);
       }
     }
-  }
-//   console.log(process.env.REACT_APP_BASE_URL);
-//   console.log(process.env.REACT_APP_ROLE);
+  };
+  //   console.log(process.env.REACT_APP_BASE_URL);
+  //   console.log(process.env.REACT_APP_ROLE);
   return (
     <div className="wrapper">
       {!state.token ? (
@@ -105,7 +107,7 @@ const SignUp = () => {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-            
+
             <input
               type="password"
               placeholder="Password"
