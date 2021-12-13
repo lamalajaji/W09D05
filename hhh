@@ -1,0 +1,25 @@
+
+               comments.map((com) => {
+                 console.log(com);
+                 return (
+                   <div className="post">
+                     <div>
+                       <img src={ele.img} />
+                     </div>
+                     {ele._id === com.post._id ? (
+                       <ul>
+                         <li key={com._id}>{com.comment}</li>
+                       </ul>
+                     ) : (
+                       <div>
+                         <textarea
+                           id="shareCommentText"
+                           placeholder="Write a comment.."
+                         ></textarea>
+                         <button onClick={addComment}>Add</button>
+                       </div>
+                     )}
+                   </div>
+                 );
+               });
+             }
