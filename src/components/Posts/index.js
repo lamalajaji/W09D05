@@ -1,26 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom'
-import {  useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { storage } from "../firebase";
 import Nav from "./../NavBar";
 import axios from "axios";
+import Swal from "sweetalert2";
 import "./style.css";
 
 const Posts = () => {
-  let [posts, setPosts] = useState([]);
-  let [comments, setComments] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [image, setImage] = useState(null);
+
+  const [description, setDescription] = useState("");
+  const [url, setUrl] = useState("");
 
   const state = useSelector((state) => {
-  return {
-    token: state.Login.token,
-    user : state.Login.user
-  };
-});
+    return {
+      token: state.Login.token,
+      user: state.Login.user,
+    };
+  });
 
   useEffect(() => {
     getPosts();
     getComments();
   }, []);
 
+  ///// 
+   useEffect(() => {
+     if (description.trim().length > 0) {
+       addPost();
+       setUrl("");
+       setDescription("");
+     }
+     // eslint-disable-next-line
+   }, [description]);
+
+
+   //////
 
   const getPosts = async () => {
     try {
@@ -28,14 +46,16 @@ const Posts = () => {
         headers: {
           Authorization: `Bearer ${state.token}`,
         },
-      }); setPosts(res.data)
+      });
+      setPosts(res.data);
     } catch (error) {
       console.log(error);
     }
   };
+//////
 
-  const getComments = async ()=>{
-    try{
+  const getComments = async () => {
+    try {
       const comments = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/comments`,
         {
@@ -43,14 +63,94 @@ const Posts = () => {
             Authorization: `Bearer ${state.token}`,
           },
         }
-        
-      );setComments(comments.data);
-
-    }catch(error){
+      );
+      setComments(comments.data);
+    } catch (error) {
       console.log(error);
-
     }
-  }
+  };
+//////
+
+  const handleUpload = (image) => {
+    // console.log("image :", image);
+    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            setUrl(url);
+            // console.log(url);
+          });
+      }
+    );
+  };
+  /////
+
+  const handleInput = async () => {
+    const { value: file } = await Swal.fire({
+      title: "Add New Meme",
+      input: "file",
+      inputLabel: "Choose an image from your machine",
+      showCancelButton: true,
+      confirmButtonText: "Post",
+      confirmButtonColor: "#E07A5F",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+      inputAttributes: {
+        accept: "image/*",
+        "aria-label": "Upload your image",
+      },
+    });
+
+    if (file) handleUpload(file);
+
+    const { value: text } = await Swal.fire({
+      title: "Add New Post",
+      input: "textarea",
+      inputPlaceholder: "Enter your description here...",
+      inputAttributes: {
+        "aria-label": "Enter your description here",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Post",
+      confirmButtonColor: "#E07A5F",
+      cancelButtonText: "Cancel",
+      reverseButtons: true,
+    });
+
+    if (text) setDescription(text);
+  };
+
+
+  /////
+
+  const addPost = async () => {
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/post`,
+        {
+          desc: description,
+          img: url,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      getPosts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -65,42 +165,25 @@ const Posts = () => {
         ) : (
           <div className="explore">
             <Nav />
-            <button>Add Meme</button>
-            {comments.map((ele) => {
+            <button onClick={handleInput}>Add Meme</button>
+            {posts.map((post) => {
               // console.log(post);
               return (
-                <div className="card" key={ele._id}>
+                <div className="card" key={post._id}>
                   <div className="post-header">
-                    <Link to={`/post/${ele._id}`}>
-                      <img src={ele.post.img} />
-                      <h3>{ele.post.title}</h3>
+                    <Link to={`/post/${post._id}`}>
+                      <img src={post.img} />
+                      <h3>{post.title}</h3>
                     </Link>
-                    
-                      <p>{ele.comment}</p>
-                    
                   </div>
-                  {/* {comments.map((comment)=>{
-                    console.log(comments);
-                    return (
-                      <ul>
-                        <li key={comment._id}>{} </li>
-                      </ul>
-                    );
-                  })} */}
                 </div>
               );
-
-              //   <img {post.img}/>
             })}
           </div>
         )}
       </div>
     </>
   );
-
-  
- 
-  
 };
 
 export default Posts;
