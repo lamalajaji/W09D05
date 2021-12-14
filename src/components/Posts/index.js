@@ -12,7 +12,6 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [image, setImage] = useState(null);
-
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
 
