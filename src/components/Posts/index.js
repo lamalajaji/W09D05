@@ -5,6 +5,7 @@ import { storage } from "../firebase";
 import Nav from "./../NavBar";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { RiAddFill } from "react-icons/ri";
 import "./style.css";
 
 const Posts = () => {
@@ -157,28 +158,45 @@ const Posts = () => {
       <div>
         {!state.token ? (
           <div className="wrapper">
-            <h1>
+            <h1 className="login">
               You Have to <Link to="/signup"> Sign Up </Link> or
               <Link to="/"> Login </Link>
             </h1>
           </div>
         ) : (
-          <div className="explore">
-            <Nav />
-            <button onClick={handleInput}>Add Meme</button>
-            {posts.map((post) => {
-              // console.log(post);
-              return (
-                <div className="card" key={post._id}>
-                  <div className="post-header">
-                    <Link to={`/post/${post._id}`}>
-                      <img src={post.img} />
-                      <h3>{post.title}</h3>
-                    </Link>
+          <div className="exWrapper">
+            <div className="explore">
+              <Nav />
+              <div className="memeBtn">
+                <button onClick={handleInput}>
+                  {" "}
+                  <RiAddFill className="grAdd" />
+                  Add Meme
+                </button>
+              </div>
+              {posts.map((post) => {
+                console.log(post);
+                return (
+                  <div className="card" key={post._id}>
+                    <div className="post-header">
+                      <Link to={`/post/${post._id}`}>
+                        <div>
+                          <img id="avatar" src={post.createdBy.avatar} />
+                          <span>{post.createdBy.userName}</span>
+                        </div>
+                        <img src={post.img} />
+                        <div>
+                          <span>{post.createdBy.userName}</span>
+                         
+                            <p>{post.title}</p>
+                         
+                        </div>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

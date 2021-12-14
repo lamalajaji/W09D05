@@ -61,33 +61,12 @@ const SignUp = () => {
       }
     }
   };
-  //   console.log(process.env.REACT_APP_BASE_URL);
-  //   console.log(process.env.REACT_APP_ROLE);
+ 
   return (
-    <div className="wrapper">
+    <div className="loginWrapper">
       {!state.token ? (
         <div className="form">
-          <PasswordChecklist
-            rules={[
-              "minLength",
-              "specialChar",
-              "number",
-              "capital",
-              "lowercase",
-            ]}
-            minLength={8}
-            value={password}
-            onChange={(isValid) => {
-              if (isValid) {
-                const button = document.querySelector("#signupSubmitButton");
-                button.disabled = false;
-              } else {
-                const button = document.querySelector("#signupSubmitButton");
-                button.disabled = true;
-              }
-            }}
-          />
-          <h1>Sign Up </h1>
+          <h1 className="login">Sign Up </h1>
           <form
             className="signupForm"
             onSubmit={(e) => {
@@ -98,6 +77,7 @@ const SignUp = () => {
             <input
               type="text"
               placeholder="Username"
+              className="email"
               required
               onChange={(e) => setUsername(e.target.value)}
             />
@@ -105,12 +85,14 @@ const SignUp = () => {
               type="text"
               placeholder="Email"
               required
+              className="email"
               onChange={(e) => setEmail(e.target.value)}
             />
 
             <input
               type="password"
               placeholder="Password"
+              className="password"
               required
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -119,17 +101,39 @@ const SignUp = () => {
               id="signupSubmitButton"
               type="submit"
               value="Submit"
+              className="loginBtn"
               disabled
             />
           </form>
-          <h3>
-            {" "}
-            You Have an Account ? <Link to="/">Login Here </Link>{" "}
+          <div className="chicklist">
+            <PasswordChecklist
+              rules={[
+                "minLength",
+                "specialChar",
+                "number",
+                "capital",
+                "lowercase",
+              ]}
+              minLength={8}
+              value={password}
+              onChange={(isValid) => {
+                if (isValid) {
+                  const button = document.querySelector("#signupSubmitButton");
+                  button.disabled = false;
+                } else {
+                  const button = document.querySelector("#signupSubmitButton");
+                  button.disabled = true;
+                }
+              }}
+            />
+          </div>
+
+          <h3 className="logIn">
+            Are you a member ? <Link to="/">Login Here </Link>{" "}
           </h3>
         </div>
       ) : (
         <h1>
-          {" "}
           You Already Logged in , Go To <Link to="/explore">Home</Link>{" "}
         </h1>
       )}

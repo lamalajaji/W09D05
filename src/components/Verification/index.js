@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import ReactCodeInput from "react-verification-code-input";
+import "./style.css";
 
 const Verification = () => {
   const [code, setCode] = useState("");
@@ -30,10 +31,10 @@ const Verification = () => {
   };
   return (
     <>
-      <div>
-        <h1> Verify Your Account : </h1>
-        <ReactCodeInput fields={4} onComplete={(digit) => setCode(digit)} />
-        <button onClick={verify}>Confirm </button>
+      <div className="verify"> 
+        <h1 className="login"> Verify Your Account : </h1>
+        <ReactCodeInput className="digit" fields={4} onComplete={(digit) => setCode(digit)} />
+        <button className="confirmBtn" onClick={verify}>Confirm </button>
       </div>
     </>
   );

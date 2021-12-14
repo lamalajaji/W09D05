@@ -28,6 +28,7 @@ useEffect(() => {
 }, [])
 
 ////
+console.log(state.token);
 const getThePost = async () => {
   try {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/post/${id}`, {
@@ -44,7 +45,7 @@ const getThePost = async () => {
 const getComments = async () => {
   try {
     const comments = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/comments`,
+      `${process.env.REACT_APP_BASE_URL}/comments/${id}`,
       {
         headers: {
           Authorization: `Bearer ${state.token}`,
@@ -74,6 +75,7 @@ const getComments = async () => {
  }
 
  const addComment = async ()=> {
+       
      await axios.post(
        `${process.env.REACT_APP_BASE_URL}/comment`,
        {
@@ -85,14 +87,17 @@ const getComments = async () => {
            Authorization: `Bearer ${state.token}`,
          },
        }
+       
+       
      );
-     getThePost();
+           getComments();
+
 
  }
 
  ///// edit comment : 
 
- const editTheComment = async ()=> {
+ const editTheComment = async (comId)=> {
      const { value: text } = await Swal.fire({
        title: "Enter your Comment",
        input: "textarea",
@@ -109,10 +114,10 @@ const getComments = async () => {
 
      if (text) {
        await axios.put(
-         `${process.env.REACT_APP_BASE_URL}/comment/:id`,
+         `${process.env.REACT_APP_BASE_URL}/comment/${comId}`,
          {
-            id,
-            comment
+           id: comId,
+           comment: text,
          },
          {
            headers: {
@@ -120,7 +125,7 @@ const getComments = async () => {
            },
          }
        );
-       getThePost();
+        getComments();
      }
 
  }
@@ -128,7 +133,7 @@ const getComments = async () => {
 
  ///// remove comment
 
- const deleteTheComment = async (commentId)=> {
+ const deleteTheComment = async (comId)=> {
      Swal.fire({
        title: " Are You Sure?",
        text: "you couldn't revert your comment again!",
@@ -142,7 +147,7 @@ const getComments = async () => {
      }).then(async (result) => {
        if (result.isConfirmed) {
          await axios.put(
-           `${process.env.REACT_APP_BASE_URL}/delcomment/${commentId}`,
+           `${process.env.REACT_APP_BASE_URL}/delcomment/${comId}`,
            {
              postID: id,
            },
@@ -152,7 +157,7 @@ const getComments = async () => {
              },
            }
          );
-         getThePost();
+         getComments();
          Swal.fire({
            title: "Comment Has Been Deleted!",
            icon: "success",
@@ -178,37 +183,69 @@ const getComments = async () => {
 
  return (
    <>
-   {!state.token? (
-       <h3> you have to signeUp or Login </h3>
-   ): (
+     {!state.token ? (
+       <h3 className="login"> you have to signe up or Login </h3>
+     ) : (
        <>
-       <Nav/>
-       {post.map((ele)=> {
+         <Nav />
+         {post.map((ele)=> {
+           console.log(ele);
            return (
              <>
-               <div className="meme-img">
-                 <img key={ele._id} src={ele.img} />
+               <div className="postDiv">
                  <div>
-                   <button onClick={favMeme}>Fav</button>
-                   <div className="comment-section">
-                     <textarea
-                       id="shareCommentText"
-                       placeholder="Write a comment.."
-                       onChange={(e) => setComment(e.target.value)}
-                     ></textarea>
-                     <button onClick={addComment}>Add</button>
-                   </div>
+                   <img id="avatar" src={ele.createdBy.avatar} />
+                   <span>{ele.createdBy.userName}</span>
                  </div>
+
+                 <img key={ele._id} src={ele.img} />
+                 <textarea
+                   id="shareCommentText"
+                   placeholder="Write a comment.."
+                 onChange={(e)=> setComment(e.target.value)}></textarea>
+                 <button onClick={addComment}>Post</button>
                </div>
+               {comments.map((com) => {
+                 console.log(com);
+                 return (
+                   <div key={com._id}>
+                     <img id="ava" src={com.user.avatar} />
+
+                     <h3>{com.user.userName} </h3>
+
+                     <p key={com._id}>{com.comment} </p>
+
+                     {state.user._id === com.user._id && (
+                       <div>
+                         <button
+                           className="edit"
+                           onClick={() => editTheComment(com._id)}
+                         >
+                           Edit
+                         </button>
+                         <button
+                           className="remove"
+                           onClick={() => deleteTheComment(com._id)}
+                         >
+                           remove{" "}
+                         </button>
+                       </div>
+                     )}
+                   </div>
+                 );
+               })}
+
+              
              </>
            );
-       })}
+         })}
        </>
-   )}
-
+       
+     )}
    </>
- )
+ );
   
 };
 
 export default Post;
+

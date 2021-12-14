@@ -1,0 +1,14 @@
+.verify{
+    padding: 150px 0;
+}
+.digit{
+    width: 200px;
+    margin: 50px 800px;
+}
+.confirmBtn{
+     width: 120px;
+     margin: 0px 850px;
+    font-family: "Roboto Mono", monospace;
+  font-size: 22px;
+
+}

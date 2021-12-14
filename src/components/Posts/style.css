@@ -1,0 +1,54 @@
+.exWrapper a{
+text-decoration: none;
+}
+.card{
+ margin: 10vh auto;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #ffff;
+  border-radius: 3px;
+  padding: 10px;
+  background-color: #ffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.card img{
+    width: 700px;
+    height: 876px;
+}
+
+.memeBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    
+}
+
+.memeBtn button{
+ width: 150px;
+ height: 40px;
+ margin: 30px 100px;
+font-family: "Roboto Mono", monospace;
+font-weight: bolder;
+font-size: 20px;
+background-color: #6CC431;
+color: white;
+border: none;
+border-radius: 5px;
+}
+
+.grAdd{
+   font-size: 20px;
+   color: white;
+  
+}
+
+#avatar{
+    width: 90px;
+    height: 90px; 
+    border-radius: 180px;
+}
+

@@ -1,25 +1,82 @@
-*{
-    margin: 0;
-    padding:  0;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono&family=Sawarabi+Mincho&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono:wght@100;400&family=Sawarabi+Mincho&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono:wght@500&family=Sawarabi+Mincho&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  margin: 0 auto;
+  padding: 0;
+}
+.loginWrapper {
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  /* background-image: url(https://i.pinimg.com/564x/f0/9a/7c/f09a7cfebc9969646bea01605976e8b3.jpg);
+    background-repeat: no-repeat;
+    background-size: cover; */
 }
 
-.wrapper{
-    width: 100%;
+.form {
+  width: 700px;
+  margin: 15% 30%;
+  background-color: rgb(223, 204, 204);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 
 }
-
-.form{
-    width: 40%;
-    height: 400px;
-    margin: 15% 30% ;
-    border: 1px solid black;
-   
+.login {
+  text-align: center;
+  padding: 10px;
+  font-size: 50px;
+  font-family: "Roboto Mono", monospace;
 }
-.form h1{
-    text-align: center; 
-     font-size: 50px; 
-     font-weight: lighter;
-    font-family: 'Handlee', cursive;
+.email,
+.password {
+  display: block;
+  width: 450px;
+  height: 45px;
+  margin: 25px 120px;
+  border: none;
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+}
 
+.loginBtn {
+  display: block;
+  width: 90px;
+  height: 45px;
+  margin: 0px 300px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 22px;
+}
+.h3 {
+  display: block;
+  margin: 10px 250px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: lighter;
+  font-size: 15px;
+}
+.google {
+  margin: 15px 260px;
+}
+
+.signUp {
+  /* display: block;
+  margin: 10px 250px;
+  font-family: "Roboto Mono", monospace;
+  font-weight: lighter;
+  font-size: 12px;
+  padding-bottom: 10px; */
+  display: block;
+  margin: 50px 200px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+.signUp a{
+    color:darkblue;
+    
 }

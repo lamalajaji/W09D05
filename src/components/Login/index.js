@@ -43,16 +43,7 @@ const Login = () => {
       console.log(error);
     }
   
-      // if (result.status ===200){
-      //     setMessage("Login Successfully");
-      //      dispatch(
-      //        signIn({ role: result.data.result.role, token: result.data.token })
-      //      );
-      //      navigate("/explore");
-      //      console.log(result);
-      // } else {
-      //     setMessage(result.data);
-      // }
+      
     }
 
     const responseSuccessGoogle = (response)=>{
@@ -70,44 +61,52 @@ const responseErrorGoogle = (response)=>{
 //   };
 
   return (
-    <div className="wrapper">
+    <div className="loginWrapper">
       {!state.token ? (
-        <div className="form">
-          <h1>Login</h1>
+        <div className="loginInner">
+          <div className="form">
+            <h1 className="login">Login</h1>
+            {message ? <div className="message">{message} </div> : ""}
+            <input
+              type="email"
+              name="email"
+              placeholder="Email or Username"
+              required
+              className="email"
+              onChange={(e) => setIdentity(e.target.value)}
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <input
+              type="submit"
+              value="login"
+              className="loginBtn"
+              onClick={login}
+            />
 
-          {message ? <div className="message">{message} </div> : ""}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email or Password"
-            required
-            onChange={(e) => setIdentity(e.target.value)}
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input type="submit" value="login" onClick={login} />
-          <h3> Forgot Your Password ? </h3>
-
-          <h3>
             <GoogleLogin
               clientId={process.env.REACT_APP_CLIENT_ID}
               buttonText="Login With Google"
               onSuccess={responseSuccessGoogle}
               onFailure={responseErrorGoogle}
               cookiePolicy={"single_host_origin"}
-            />{" "}
-            You Don't Have an Account ? <Link to="/signup">SignUp Here </Link>{" "}
-          </h3>
+              className="google"
+            />
+            <h3 className="h3"> Forgot Your Password ? </h3>
+            <h3 className="signUp">
+              Not a member ? <Link to="/signup">Sign up now </Link>
+            </h3>
+          </div>
         </div>
       ) : (
-        <h1>
-          {" "}
-          You Already Logged in , Go To <Link to="/list">Your List </Link>{" "}
+        <h1 className="">
+          You Already Logged in , Go To <Link to="/explore">Home </Link>
         </h1>
       )}
     </div>
