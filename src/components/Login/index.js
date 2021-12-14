@@ -48,17 +48,21 @@ const Login = () => {
 
     const responseSuccessGoogle = (response)=>{
 console.log(response);
-navigate("/explore");
+axios({
+  method: "POST",
+  url: `${process.env.REACT_APP_BASE_URL}/googlelogin`,
+  data: { tokenId: response.tokenId },
+}).then(response => {
+  console.log("Google login Success: ",response);
+
+})
+// navigate("/explore");
     }
        
 const responseErrorGoogle = (response)=>{
   console.log(response);
 }
-      
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  
 
   return (
     <div className="loginWrapper">
