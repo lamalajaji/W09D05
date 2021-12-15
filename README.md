@@ -39,7 +39,7 @@ and Redux .
 
 # UML Diagram
 
-[UML](./diagram/UML.png)
+![UML](./diagram/UML.png)
 
 
 
