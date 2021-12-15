@@ -6,6 +6,9 @@ import Nav from "./../NavBar";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { RiAddFill } from "react-icons/ri";
+import { FaPlus } from "react-icons/fa";
+
+
 import "./style.css";
 
 const Posts = () => {
@@ -154,7 +157,7 @@ const Posts = () => {
 
   return (
     <>
-      <div>
+      <div className="body">
         {!state.token ? (
           <div className="wrapper">
             <h1 className="login">
@@ -167,38 +170,47 @@ const Posts = () => {
             <div className="explore">
               <Nav />
               <div className="memeBtn">
-                <button onClick={handleInput}>
-                  {" "}
-                  <RiAddFill className="grAdd" />
-                  Add Meme
+                <button  onClick={handleInput}>
+                  <FaPlus className="grAdd" />
+                   Add Meme
                 </button>
               </div>
               {posts.map((post) => {
                 console.log(post);
                 return (
-                  <div className="card" key={post._id}>
-                    <div className="post-header">
-                      <Link to={`/post/${post._id}`}>
-                        <div>
-                          <img id="avatar" src={post.createdBy.avatar} />
-                          <span>{post.createdBy.userName}</span>
-                        </div>
-                        <img src={post.img} />
-                        <div>
-                          <span>{post.createdBy.userName}</span>
-                         
-                            <p>{post.title}</p>
-                         
-                        </div>
-                      </Link>
+                  
+                    <div className="card" key={post._id}>
+                      <div className="post-header">
+                        <Link to={`/post/${post._id}`}>
+                          <div>
+                            <img id="avatar" src={post.createdBy.avatar} />
+                            <span className="usename">
+                              {post.createdBy.userName}
+                            </span>
+                            <hr />
+                          </div>
+                          <img src={post.img} />
+                          <div>
+                            <span>
+                              <h3 className="usename">
+                                {post.createdBy.userName} :
+                              </h3>
+
+                              <p className="title">- {post.title} </p>
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
+                 
                 );
               })}
+              
             </div>
           </div>
         )}
       </div>
+      
     </>
   );
 };

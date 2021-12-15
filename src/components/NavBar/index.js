@@ -2,6 +2,9 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "../../Reducers/Login";
+import { MdLogout } from "react-icons/md";
+
+
 import "./style.css";
 
 const Nav = () => {
@@ -19,22 +22,28 @@ const Nav = () => {
     navigate("/");
   };
   return (
-    <header>
-      <ul className="navLinks">
-        <Link to="/explore">
-          <li>Explore </li>
-        </Link>
-        <Link to="/explore">
-          <li> My Profile </li>
-        </Link>
-        <Link to="/explore">
-          <li>
-            {" "}
-            <button onClick={signout}> Log out </button>
-          </li>
-        </Link>
-      </ul>
-    </header>
+    <div className="header">
+      <div className="logo">
+        <h2> Comic</h2>
+      </div>
+      <div className="nav">
+        <ul className="navLinks">
+          <Link to="/explore">
+            <li>Explore | </li>
+          </Link>
+          {/* <Link to="/explore">
+            <li> My Profile |</li>
+          </Link> */}
+          <Link to="/explore">
+            <li>
+              <button className="logout" onClick={signout}>
+                Logout <MdLogout />
+              </button>
+            </li>
+          </Link>
+        </ul>
+      </div>
+    </div>
   );
 };
 

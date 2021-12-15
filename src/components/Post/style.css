@@ -1,4 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Architects+Daughter&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono:wght@100&family=Sawarabi+Mincho&family=Source+Sans+3:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Architects+Daughter&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono:wght@100&family=Sawarabi+Mincho&family=Source+Sans+3:wght@300&display=swap');
+
 #ava {
     width: 90px;
     height: 90px;
+}
+
+
+.postCont{
+
+margin:0 auto;
+padding: 60px auto;
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 3px solid #ffff;
+  border-radius: 7px;
+  padding: 10px;
+  background-color: #ffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+
+}
+.postDiv{
+
+border: 1px solid black;
+}
+
+#Comment{
+    width: 500px;
+    height: 80px;
+    margin-top: 30px;
+    font-size: 20px;
+
+
+    /* border: blue; */
+}
+.postBtns button{
+ width: 170px;
+ height: 45px;
+ margin: 30px 100px;
+ position:sticky; 
+ font-family: "Roboto Mono", monospace;
+font-weight: bolder;
+font-size: 20px;
+background-color: #6CC431;
+color: white;
+border: none;
+border-radius: 5px; 
+}
+
+#add{
+     width: 100px;
+ height: 45px;
+ margin: 30px 100px;
+ position:sticky; 
+ font-family: "Roboto Mono", monospace;
+font-weight: bolder;
+font-size: 20px;
+background-color: #3145FF;
+color: white;
+border: none;
+border-radius: 5px; 
+
+}
+.comBody{
+     background-color: #F5F5F5;
+}
+.comDiv{
+    margin: 40px;
+    border: 1px solid black;
+    width: 40%;
+
+
 }

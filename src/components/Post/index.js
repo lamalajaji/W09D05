@@ -4,6 +4,8 @@ import { storage } from "../firebase";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Nav from "../NavBar";
+import { FiEdit3 } from "react-icons/fi";
+import { MdDeleteForever } from "react-icons/md";
 import {  useNavigate, useParams } from "react-router";
 import "./style.css";
 
@@ -343,59 +345,68 @@ getThePost();
            console.log(ele);
            return (
              <>
-               <div className="postDiv">
-                 <div>
-                   <img id="avatar" src={ele.createdBy.avatar} />
-                   <span>{ele.createdBy.userName}</span>
-                 </div>
+               <div className="body">
+                 <div className="postCont">
+                   <div className="postDiv">
+                     <img id="avatar" src={ele.createdBy.avatar} />
+                     <span>{ele.createdBy.userName}</span>
+                   </div>
 
-                 <img key={ele._id} src={ele.img} />
-                 <textarea
-                   id="shareCommentText"
-                   placeholder="Write a comment.."
-                   onChange={(e) => setComment(e.target.value)}
-                 ></textarea>
-                 <button onClick={() => addComment()}>Post</button>
-                 {ele.createdBy._id === state.user._id && (
-                   <div>
-                     <button onClick={() => handleUpdatedInputs()}>
-                       edit post
-                     </button>
-                     <button onClick={deleteThePost}>remove post</button>
-                     {/* {isLike ? (
+                   <img key={ele._id} src={ele.img} />
+                   {ele.createdBy._id === state.user._id && (
+                     <div className="postBtns">
+                       <button id="remove"onClick={() => handleUpdatedInputs()}>
+                         <FiEdit3 />
+                         edit post
+                       </button>
+                       <button onClick={deleteThePost}>
+                         {" "}
+                         <MdDeleteForever />
+                         remove post
+                       </button>
+                       {/* {isLike ? (
                        <button onClick={favMeme(false)}> Like </button>
                      ) : (
                        <button onClick={favMeme(true)}> Like </button>
                      )} */}
-                   </div>
-                 )}
+                     </div>
+                   )}
+                   <textarea
+                     id="Comment"
+                     placeholder="Write a comment.."
+                     onChange={(e) => setComment(e.target.value)}
+                   ></textarea>
+                   <button id="add"onClick={() => addComment()}>Add</button>
+                 </div>
                </div>
                {comments.map((com) => {
                  //  console.log(com);
                  return (
-                   <div key={com._id}>
-                     <img id="ava" src={com.user.avatar} />
+                   <div className="body">
+                     <div key={com._id} className="comDiv">
+                       <img id="ava" src={com.user.avatar} />
 
-                     <h3>{com.user.userName} </h3>
+                       <h3>{com.user.userName} </h3>
 
-                     <p key={com._id}>{com.comment} </p>
+                       <p key={com._id}>{com.comment} </p>
 
-                     {state.user._id === com.user._id && (
-                       <div>
-                         <button
-                           className="edit"
-                           onClick={() => editTheComment(com._id)}
-                         >
-                           Edit
-                         </button>
-                         <button
-                           className="remove"
-                           onClick={() => deleteTheComment(com._id)}
-                         >
-                           remove{" "}
-                         </button>
-                       </div>
-                     )}
+                       {state.user._id === com.user._id && (
+                         <div>
+                           <button
+                             className="edit"
+                             onClick={() => editTheComment(com._id)}
+                           >
+                             Edit
+                           </button>
+                           <button
+                             className="remove"
+                             onClick={() => deleteTheComment(com._id)}
+                           >
+                             remove{" "}
+                           </button>
+                         </div>
+                       )}
+                     </div>
                    </div>
                  );
                })}

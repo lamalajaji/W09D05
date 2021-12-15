@@ -5,7 +5,7 @@ import SignUp from "./components/Register";
 import Posts from "./components/Posts";
 import Post from "./components/Post";
 import Verification from "./components/Verification";
-import UploadFiles from "./components/addPost";
+// import UploadFiles from "./components/addPost";
 
 
 export default class App extends Component {
@@ -17,7 +17,7 @@ export default class App extends Component {
           <Route path="signup" element={<SignUp />} />
           <Route path="/verify/:id" element={<Verification />} />
           <Route path="/explore" element={<Posts />} />
-          <Route path="/upload" element={<UploadFiles />} />
+          {/* <Route path="/upload" element={<UploadFiles />} /> */}
           <Route path="/post/:id" element={<Post />} />
         </Routes>
       </div>

@@ -1,31 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Amatic+SC&family=Amiri:wght@700&family=Architects+Daughter&family=Cinzel:wght@500&family=Francois+One&family=Handlee&family=Lobster&family=Mali:wght@200;300&family=Mulish&family=Neucha&family=Roboto+Mono:wght@100&family=Sawarabi+Mincho&display=swap');
 *{
     margin: 0;
     padding:  0;
     box-sizing: border-box;
 }
-header{
-    display: flex;
-    justify-content: space-between;
-    background-color: pink;
+.header{
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    background-color: #F5F5F5;
+
+
+    
 
 }
+.logo{
+   
+    display: inline-block ;
+    text-align: center;
+   font-size: 40px;
+   font-family: 'Architects Daughter', cursive;
+  
+
+}
+
+
+.nav{
+     display: flex;
+     flex-direction: column;
+    justify-content: space-between;
+    margin: 35px 2px;
+   font-family: 'Architects Daughter';
+    font-size: 30px;
+  
+
+   
+  
+}
 .navLinks{
-    list-style: none;
+     list-style: none;
     text-decoration: none;
-    color: white;
+    
+  
 }
 
 .navLinks li{
 display: inline-block;
 padding: 0px 20px;
-   
-}
-
-.navLinks li a{
-    transition: all 0.3s ease 0s;
+  color: #707070;
+      
    
 }
 
 .navLinks li a:hover{
-    color: darkgreen;
+    color: #297045;
+    cursor: pointer;
+}
+.logout{
+    font-size: 30px;
+    background: none;
+    border: none;
+    color: #297045;
+    font-family: 'Architects Daughter';
+
 }
