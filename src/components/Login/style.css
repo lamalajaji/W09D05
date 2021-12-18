@@ -55,9 +55,13 @@ body {
 .h3 {
   display: block;
   margin: 10px 250px;
+  text-decoration: underline;
   font-family: "Roboto Mono", monospace;
   font-weight: lighter;
   font-size: 15px;
+}
+.h3:hover{
+  cursor: pointer;
 }
 .google {
   margin: 15px 260px;

@@ -5,6 +5,7 @@ import GoogleLogin from "react-google-login";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -62,6 +63,37 @@ axios({
 const responseErrorGoogle = (response)=>{
   console.log(response);
 }
+
+const resetPass = async ()=> {
+  const { value: email } = await Swal.fire({
+    title: "Forgot Password",
+    input: "email",
+    inputPlaceholder: "Enter your email address",
+    showCancelButton: true,
+    confirmButtonColor: "#E07A5F",
+    cancelButtonText: "Cancel",
+    reverseButtons: true,
+  });
+   if (email) {
+     try{
+       await axios.post(`${process.env.REACT_APP_BASE_URL}/check`,{
+         email
+       });
+       Swal.fire({
+         icon: "success",
+         text: "Confirm your Email to Reset passwrd",
+         confirmButtonColor: "#E07A5F",
+       });
+
+     } catch(error) {
+       Swal.fire({
+         icon: "error",
+         text: "Somthing went Wrong!",
+         confirmButtonColor : "#E07A5F"
+       })
+     }
+   }
+}
   
 
   return (
@@ -102,7 +134,7 @@ const responseErrorGoogle = (response)=>{
               cookiePolicy={"single_host_origin"}
               className="google"
             />
-            <h3 className="h3"> Forgot Your Password ? </h3>
+            <p className="h3" onClick={resetPass}> Forgot Your Password ? </p>
             <h3 className="signUp">
               Not a member ? <Link to="/signup">Sign up now </Link>
             </h3>

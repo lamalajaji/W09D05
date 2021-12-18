@@ -178,31 +178,29 @@ const Posts = () => {
               {posts.map((post) => {
                 console.log(post);
                 return (
-                  
-                    <div className="card" key={post._id}>
-                      <div className="post-header">
-                        <Link to={`/post/${post._id}`}>
-                          <div>
-                            <img id="avatar" src={post.createdBy.avatar} />
-                            <span className="usename">
-                              {post.createdBy.userName}
-                            </span>
-                            <hr />
-                          </div>
-                          <img src={post.img} />
-                          <div>
-                            <span>
-                              <h3 className="usename">
-                                {post.createdBy.userName} :
-                              </h3>
+                  <div className="card" key={post._id}>
+                    <div className="post-header">
+                      <Link to={`/post/${post._id}`}>
+                        <div>
+                          <img id="avatar" src={post.createdBy.avatar} />
+                          <span className="usename">
+                            {post.createdBy.userName}
+                          </span>
+                          <hr />
+                        </div>
+                        <img src={post.img} />
+                        <div>
+                          <span>
+                            <h3 className="usename">
+                              {post.createdBy.userName} :
+                            </h3>
 
-                              <p className="title">- {post.title} </p>
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
+                            <p className="title">- {post.desc} </p>
+                          </span>
+                        </div>
+                      </Link>
                     </div>
-                 
+                  </div>
                 );
               })}
               
